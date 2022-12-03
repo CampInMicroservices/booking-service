@@ -6,17 +6,29 @@ import (
 )
 
 type Booking struct {
-	ID        int64     `json:"id" db:"id"`
-	Name      string    `json:"name" db:"name"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
+	ID               int64     `json:"id" db:"id"`
+	UserID           int64     `json:"user_id" db:"user_id"`
+	ListingID        int64     `json:"listing_id" db:"listing_id"`
+	NumberOfAdults   int64     `json:"number_of_adults" db:"number_of_adults"`
+	NumberOfChildren int64     `json:"number_of_children" db:"number_of_children"`
+	NumberOfPets     int64     `json:"number_of_pets" db:"number_of_pets"`
+	CreatedAt        time.Time `json:"created_at" db:"created_at"`
 }
 
 type CreateBookingParam struct {
-	Name string
+	UserID           int64
+	ListingID        int64
+	NumberOfAdults   int64
+	NumberOfChildren int64
+	NumberOfPets     int64
 }
 
 type UpdateBookingParam struct {
-	Name string
+	UserID           int64
+	ListingID        int64
+	NumberOfAdults   int64
+	NumberOfChildren int64
+	NumberOfPets     int64
 }
 
 type ListBookingParam struct {
@@ -44,18 +56,22 @@ func (store *Store) GetAllBookings(ctx context.Context, arg ListBookingParam) (b
 func (store *Store) CreateBooking(ctx context.Context, arg CreateBookingParam) (Booking, error) {
 
 	const query = `
-	INSERT INTO "bookings" ("name") 
-	VALUES ($1)
-	RETURNING "id", "name", "created_at"
+	INSERT INTO "bookings" ("user_id", "listing_id", "number_of_adults", "number_of_children", "number_of_pets") 
+	VALUES ($1, $2, $3, $4, $5)
+	RETURNING "id", "user_id", "listing_id", "number_of_adults", "number_of_children", "number_of_pets", "created_at"
 	`
-	row := store.db.QueryRowContext(ctx, query, arg.Name)
+	row := store.db.QueryRowContext(ctx, query, arg.UserID, arg.ListingID, arg.NumberOfAdults, arg.NumberOfChildren, arg.NumberOfPets)
 
-	var user Booking
+	var booking Booking
 	err := row.Scan(
-		&user.ID,
-		&user.Name,
-		&user.CreatedAt,
+		&booking.ID,
+		&booking.UserID,
+		&booking.ListingID,
+		&booking.NumberOfAdults,
+		&booking.NumberOfChildren,
+		&booking.NumberOfPets,
+		&booking.CreatedAt,
 	)
 
-	return user, err
+	return booking, err
 }

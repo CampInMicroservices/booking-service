@@ -17,7 +17,11 @@ type getBookingListRequest struct {
 }
 
 type createBookingRequest struct {
-	Name string `json:"name" binding:"required"`
+	UserID           int64  `json:"user_id" binding:"required"`
+	ListingID        int64  `json:"listing_id" binding:"required"`
+	NumberOfAdults   *int64 `json:"number_of_adults" binding:"required"`
+	NumberOfChildren *int64 `json:"number_of_children" binding:"required"`
+	NumberOfPets     *int64 `json:"number_of_pets" binding:"required"`
 }
 
 func (server *Server) GetBookingByID(ctx *gin.Context) {
@@ -78,7 +82,11 @@ func (server *Server) CreateBooking(ctx *gin.Context) {
 	}
 
 	arg := db.CreateBookingParam{
-		Name: req.Name,
+		UserID:           req.UserID,
+		ListingID:        req.ListingID,
+		NumberOfAdults:   *req.NumberOfAdults,
+		NumberOfChildren: *req.NumberOfChildren,
+		NumberOfPets:     *req.NumberOfPets,
 	}
 
 	// Execute query.
