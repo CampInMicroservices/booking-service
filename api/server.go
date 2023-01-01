@@ -3,26 +3,29 @@ package api
 import (
 	"booking-service/config"
 	"booking-service/db"
+	"booking-service/proto"
 
 	"github.com/gin-gonic/gin"
 )
 
 // Server serves HTTP requests for our banking service
 type Server struct {
-	config config.Config
-	store  *db.Store
-	router *gin.Engine
+	config     config.Config
+	store      *db.Store
+	grpcClient proto.PaymentServiceClient
+	router     *gin.Engine
 }
 
 // NewServer creates a new HTTP server and set up routing
-func NewServer(config config.Config, store *db.Store) (*Server, error) {
+func NewServer(config config.Config, store *db.Store, grpcClient proto.PaymentServiceClient) (*Server, error) {
 
 	gin.SetMode(config.GinMode)
 	router := gin.Default()
 
 	server := &Server{
-		config: config,
-		store:  store,
+		config:     config,
+		store:      store,
+		grpcClient: grpcClient,
 	}
 
 	// Setup routing for server

@@ -2,6 +2,9 @@ package api
 
 import (
 	"booking-service/db"
+	"booking-service/proto"
+	"context"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -95,6 +98,24 @@ func (server *Server) CreateBooking(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"message": err})
 		ctx.Abort()
 		return
+	}
+
+	paymentRequest := &proto.PaymentRequest{
+		Payment: &proto.Payment{
+			BookingId: result.ID,
+			Price:     95.5,
+			Paid:      false,
+		},
+	}
+
+	// Create new payment via gRPC
+	paymentResponse, err := server.grpcClient.CreatePaymentRequest(context.Background(), paymentRequest)
+	if err != nil {
+		log.Println("Payment service not reachable.")
+	}
+
+	if paymentResponse != nil {
+		log.Println("New payment created: ", paymentResponse)
 	}
 
 	ctx.JSON(http.StatusCreated, result)
