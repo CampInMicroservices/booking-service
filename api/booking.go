@@ -27,6 +27,11 @@ type createBookingRequest struct {
 	NumberOfPets     *int64 `json:"number_of_pets" binding:"required"`
 }
 
+type BookingResponse struct {
+	Booking db.Booking
+	Payment *proto.PaymentResponse
+}
+
 func (server *Server) GetBookingByID(ctx *gin.Context) {
 
 	// Check if request has ID field in URI.
@@ -118,5 +123,7 @@ func (server *Server) CreateBooking(ctx *gin.Context) {
 		log.Println("New payment created: ", paymentResponse)
 	}
 
-	ctx.JSON(http.StatusCreated, result)
+	response := BookingResponse{Booking: result, Payment: paymentResponse}
+
+	ctx.JSON(http.StatusCreated, response)
 }

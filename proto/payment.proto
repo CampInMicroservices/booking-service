@@ -12,7 +12,8 @@ message PaymentRequest {
 message PaymentResponse {
     int64 id = 1;
     Payment payment = 2;
-    google.protobuf.Timestamp created_at = 3;
+    string client_secret = 3;
+    google.protobuf.Timestamp created_at = 4;
 }
   
 message Payment {
