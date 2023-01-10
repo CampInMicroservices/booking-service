@@ -1,0 +1,159 @@
+basePath: booking-service/v1
+definitions:
+  api.HealthResponse:
+    properties:
+      status:
+        type: string
+    type: object
+  db.Booking:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      listing_id:
+        type: integer
+      number_of_adults:
+        type: integer
+      number_of_children:
+        type: integer
+      number_of_pets:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+host: 20.13.80.52
+info:
+  contact:
+    email: sr8905@student.uni-lj.si
+    name: Šimen Ravnik
+  description: This is a search service server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: CampIn Search Service API
+  version: "1.0"
+paths:
+  /health/live:
+    get:
+      consumes:
+      - application/json
+      description: Liveness
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/api.HealthResponse'
+            type: array
+      summary: Liveness
+      tags:
+      - Health
+  /health/ready:
+    get:
+      consumes:
+      - application/json
+      description: Readiness
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Readiness
+      tags:
+      - Health
+  /v1/bookings:
+    get:
+      consumes:
+      - application/json
+      description: Returns bookings by ID
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/db.Booking'
+            type: array
+      summary: Bookings list
+      tags:
+      - Bookings
+    post:
+      consumes:
+      - application/json
+      description: Creates a booking
+      parameters:
+      - in: formData
+        name: created_at
+        type: string
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: listing_id
+        type: integer
+      - in: formData
+        name: number_of_adults
+        type: integer
+      - in: formData
+        name: number_of_children
+        type: integer
+      - in: formData
+        name: number_of_pets
+        type: integer
+      - in: formData
+        name: user_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/db.Booking'
+            type: array
+      summary: Bookings create
+      tags:
+      - Bookings
+  /v1/bookings/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Returns booking by ID
+      parameters:
+      - description: Booking ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/db.Booking'
+            type: array
+      summary: Bookings by ID
+      tags:
+      - Bookings
+swagger: "2.0"
