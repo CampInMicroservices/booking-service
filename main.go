@@ -16,9 +16,9 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-//	@title			CampIn Search Service API
+//	@title			CampIn Booking Service API
 //	@version		1.0
-//	@description	This is a search service server.
+//	@description	This is a booking service server.
 //	@termsOfService	http://swagger.io/terms/
 
 //	@contact.name	Šimen Ravnik
