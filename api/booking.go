@@ -113,7 +113,7 @@ func (server *Server) GetAllBookings(ctx *gin.Context) {
 // @Tags Bookings
 // @Accept json
 // @Produce json
-// @Param booking formData db.Booking true "Booking"
+// @Param request body db.Booking true "Booking"
 // @Success 200 {array} db.Booking
 // @Router /v1/bookings [post]
 func (server *Server) CreateBooking(ctx *gin.Context) {

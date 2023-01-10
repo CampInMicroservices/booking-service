@@ -128,39 +128,13 @@ const docTemplate = `{
                 "summary": "Bookings create",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "created_at",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "id",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "listing_id",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number_of_adults",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number_of_children",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number_of_pets",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "user_id",
-                        "in": "formData"
+                        "description": "Booking",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/db.Booking"
+                        }
                     }
                 ],
                 "responses": {
@@ -256,8 +230,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "20.13.80.52",
 	BasePath:         "booking-service/v1",
 	Schemes:          []string{},
-	Title:            "CampIn Search Service API",
-	Description:      "This is a search service server.",
+	Title:            "CampIn Booking Service API",
+	Description:      "This is a booking service server.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

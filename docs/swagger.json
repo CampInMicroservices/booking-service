@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a search service server.",
-        "title": "CampIn Search Service API",
+        "description": "This is a booking service server.",
+        "title": "CampIn Booking Service API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Šimen Ravnik",
@@ -121,39 +121,13 @@
                 "summary": "Bookings create",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "created_at",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "id",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "listing_id",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number_of_adults",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number_of_children",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number_of_pets",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "user_id",
-                        "in": "formData"
+                        "description": "Booking",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/db.Booking"
+                        }
                     }
                 ],
                 "responses": {
