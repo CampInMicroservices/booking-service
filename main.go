@@ -16,6 +16,19 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+//	@title			CampIn Search Service API
+//	@version		1.0
+//	@description	This is a search service server.
+//	@termsOfService	http://swagger.io/terms/
+
+//	@contact.name	Šimen Ravnik
+//	@contact.email	sr8905@student.uni-lj.si
+
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host		20.13.80.52
+// @BasePath	booking-service/v1
 func main() {
 
 	// Load configuration settings

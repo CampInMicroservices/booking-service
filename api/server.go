@@ -5,7 +5,10 @@ import (
 	"booking-service/db"
 	"booking-service/proto"
 
+	docs "booking-service/docs"
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // Server serves HTTP requests for our banking service
@@ -44,6 +47,9 @@ func NewServer(config config.Config, store *db.Store, grpcClient proto.PaymentSe
 	}
 
 	// TODO: Setup metrics routes
+
+	docs.SwaggerInfo.BasePath = "/booking-service"
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	server.router = router
 	return server, nil

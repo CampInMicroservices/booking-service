@@ -32,6 +32,18 @@ type BookingResponse struct {
 	Payment *proto.PaymentResponse
 }
 
+// @BasePath /booking-service/v1
+
+// Booking godoc
+// @Summary Bookings by ID
+// @Schemes
+// @Description Returns booking by ID
+// @Tags Bookings
+// @Accept json
+// @Produce json
+// @Param id path int true "Booking ID"
+// @Success 200 {array} db.Booking
+// @Router /v1/bookings/{id} [get]
 func (server *Server) GetBookingByID(ctx *gin.Context) {
 
 	// Check if request has ID field in URI.
@@ -53,6 +65,19 @@ func (server *Server) GetBookingByID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, result)
 }
 
+// @BasePath /booking-service/v1
+
+// Booking godoc
+// @Summary Bookings list
+// @Schemes
+// @Description Returns bookings by ID
+// @Tags Bookings
+// @Accept json
+// @Produce json
+// @Param limit query int true "Limit"
+// @Param offset query int true "Offset"
+// @Success 200 {array} db.Booking
+// @Router /v1/bookings [get]
 func (server *Server) GetAllBookings(ctx *gin.Context) {
 
 	// Check if request has parameters offset and limit for pagination.
@@ -79,6 +104,18 @@ func (server *Server) GetAllBookings(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, result)
 }
 
+// @BasePath /booking-service/v1
+
+// Booking godoc
+// @Summary Bookings create
+// @Schemes
+// @Description Creates a booking
+// @Tags Bookings
+// @Accept json
+// @Produce json
+// @Param booking formData db.Booking true "Booking"
+// @Success 200 {array} db.Booking
+// @Router /v1/bookings [post]
 func (server *Server) CreateBooking(ctx *gin.Context) {
 
 	// Check if request has all required fields in json body.
